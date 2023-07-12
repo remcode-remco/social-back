@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_124628) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_12_170840) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -39,6 +39,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_124628) do
     t.index ["country_id"], name: "index_locations_on_country_id"
   end
 
+  create_table "page_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.text "contact"
+    t.bigint "user_id", null: false
+    t.bigint "page_type_id", null: false
+    t.bigint "location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_pages_on_location_id"
+    t.index ["page_type_id"], name: "index_pages_on_page_type_id"
+    t.index ["user_id"], name: "index_pages_on_user_id"
+  end
+
   create_table "post_keywords", force: :cascade do |t|
     t.bigint "post_id", null: false
     t.bigint "keyword_id", null: false
@@ -50,12 +70,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_124628) do
 
   create_table "posts", force: :cascade do |t|
     t.text "content"
-    t.bigint "user_id", null: false
     t.bigint "location_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "postable_type", null: false
+    t.bigint "postable_id", null: false
     t.index ["location_id"], name: "index_posts_on_location_id"
-    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.index ["postable_type", "postable_id"], name: "index_posts_on_postable"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -79,10 +100,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_124628) do
   end
 
   add_foreign_key "locations", "countries"
+  add_foreign_key "pages", "locations"
+  add_foreign_key "pages", "page_types"
+  add_foreign_key "pages", "users"
   add_foreign_key "post_keywords", "keywords"
   add_foreign_key "post_keywords", "posts"
   add_foreign_key "posts", "locations"
-  add_foreign_key "posts", "users"
   add_foreign_key "replies", "posts"
   add_foreign_key "replies", "users"
   add_foreign_key "users", "locations"
