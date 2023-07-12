@@ -1,36 +1,48 @@
 require 'faker'
 
 # Clear existing data
-Location.destroy_all
-Post.destroy_all
-Reply.destroy_all
-User.destroy_all
+# Reply.destroy_all
+# User.destroy_all
+# Location.destroy_all
+# Post.destroy_all
 
 require 'csv'
 
 # Path to your CSV file
-csv_file_path = Rails.root.join('db', 'us NY zips.csv')
+# csv_file_path = Rails.root.join('db', 'us NY zips.csv')
 
 # Read the CSV file
-CSV.foreach(csv_file_path, headers: true) do |row|
-  Location.create!(
-    postcode: row['zip'],
-    latitude: row['latitude'],
-    longitude: row['longitude'],
-    name: row['city'],
-    country: Country.first
-  )
-end
+# CSV.foreach(csv_file_path, headers: true) do |row|
+#   Location.create!(
+#     postcode: row['zip'],
+#     latitude: row['latitude'],
+#     longitude: row['longitude'],
+#     name: row['city'],
+#     country: Country.first
+#   )
+# end
 
 
 
 # Create Users
+# 5.times do
+#   User.create!(
+#     name: Faker::Name.name,
+#     email: Faker::Internet.email,
+#     password: Faker::Internet.password,
+#     location_id: Location.all.sample.id
+#   )
+# end
+
+page_type=PageType.create!(name:"Sports Club")
 5.times do
-  User.create!(
+  Page.create!(
     name: Faker::Name.name,
-    email: Faker::Internet.email,
-    password: Faker::Internet.password,
-    location_id: Location.all.sample.id
+    description: Faker::Lorem.sentence,
+    contact: Faker::Lorem.sentence,
+    location_id: Location.all.sample.id,
+    user_id: User.all.sample.id,
+    page_type_id: PageType.first.id
   )
 end
 
