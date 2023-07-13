@@ -10,9 +10,15 @@ class PostsController < ApplicationController
     locations_within_radius = Location.within_radius(latitude, longitude, radius)
     post_ids = locations_within_radius.map(&:post_ids).flatten.uniq
 
-    @posts = Post.where(id: post_ids)
+    # @posts = Post.where(id: post_ids)
 
-    render json: @posts
+    @pagy, @posts = pagy(Post.where(id: post_ids))
+
+    data = { pagy: @pagy, posts: @posts }
+    puts "==============================================================="
+    puts data
+    puts "==============================================================="
+    render json: data
   end
 
   def show
