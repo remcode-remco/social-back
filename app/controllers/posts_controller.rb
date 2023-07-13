@@ -3,11 +3,12 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
 
   def index
-    latitude = params[:latitude].to_f
-    longitude = params[:longitude].to_f
-    radius = params[:radius].to_f
+    location_id = params[:location_id].to_i
+    radius = params[:radius].to_i
 
-    locations_within_radius = Location.within_radius(latitude, longitude, radius)
+    @location = Location.find(location_id)
+
+    locations_within_radius = Location.within_radius(@location.latitude, @location.longitude, radius)
     post_ids = locations_within_radius.map(&:post_ids).flatten.uniq
 
     # @posts = Post.where(id: post_ids)
