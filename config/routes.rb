@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+    get 'locations/search', to: 'locations#search'
+
     resources :users
     resources :posts
     resources :replies, except: [:index]

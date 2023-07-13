@@ -1,9 +1,14 @@
 class LocationsController < ApplicationController
-  before_action :set_location, only: [:show, :update, :destroy]
+  # before_action :set_location, only: [:show, :update, :destroy]
 
-  def index
-    @locations = Location.all
-    render json: @locations
+  def search
+    if params[:search] && params[:search].length > 0
+      @locations = Location.where("name LIKE ?", "%#{params[:search]}%").limit(5)
+      render json: @locations, each_serializer: LocationSearchSerializer
+    else
+      @locations = Location.all.limit(5)
+      render json: @locations, each_serializer: LocationSearchSerializer
+    end
   end
 
   def show

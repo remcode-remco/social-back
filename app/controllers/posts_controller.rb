@@ -16,9 +16,6 @@ class PostsController < ApplicationController
     @pagy, @posts = pagy(Post.where(id: post_ids))
 
     data = { pagy: @pagy, posts: @posts }
-    puts "==============================================================="
-    puts data
-    puts "==============================================================="
     render json: data
   end
 
