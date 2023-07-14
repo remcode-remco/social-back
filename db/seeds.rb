@@ -25,14 +25,14 @@ require 'csv'
 
 
 # Create Users
-# 5.times do
-#   User.create!(
-#     name: Faker::Name.name,
-#     email: Faker::Internet.email,
-#     password: Faker::Internet.password,
-#     location_id: Location.all.sample.id
-#   )
-# end
+5.times do
+  User.create!(
+    name: Faker::Name.name,
+    email: Faker::Internet.email,
+    password: Faker::Internet.password,
+    location_id: Location.all.sample.id
+  )
+end
 
 page_type=PageType.create!(name:"Sports Club")
 5.times do
@@ -57,7 +57,7 @@ Location.all.each do |location|
     3.times do
       post.replies.create!(
         content: Faker::Lorem.sentence,
-        user_id: User.all.sample.id
+        author: User.all.sample
       )
     end
   end

@@ -15,7 +15,11 @@ class PostsController < ApplicationController
 
     @pagy, @posts = pagy(Post.where(id: post_ids))
 
-    data = { pagy: @pagy, posts: @posts }
+    data = { 
+      pagy: @pagy, 
+      posts: ActiveModel::Serializer::CollectionSerializer.new(@posts, serializer: PostSerializer)
+    }
+    
     render json: data
   end
 

@@ -4,11 +4,10 @@ class LocationsController < ApplicationController
   def search
     if params[:search] && params[:search].length > 0
       @locations = Location.where("name LIKE ?", "%#{params[:search]}%").limit(5)
-      render json: @locations, each_serializer: LocationSearchSerializer
     else
-      @locations = Location.all.limit(5)
-      render json: @locations, each_serializer: LocationSearchSerializer
+      @locations = []
     end
+    render json: @locations, each_serializer: LocationSearchSerializer
   end
 
   def show
