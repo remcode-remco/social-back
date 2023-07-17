@@ -1,12 +1,14 @@
 # app/serializers/user_serializer.rb
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :location_city, :location_postcode
+  attributes :id, :name, :email, :location_name, :location_postcode
 
   # has_many :posts
   # has_many :replies
   # belongs_to :location
 
-  def location_city
+
+  ### FIXEN !! in een call stoppen
+  def location_name
     Location.find(object.location_id).name
   end
   def location_postcode
