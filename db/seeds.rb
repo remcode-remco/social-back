@@ -3,13 +3,15 @@ require 'csv'
 
 csv_file_path = Rails.root.join('db', 'us NY zips few.csv')
 
+country=Country.create!(name:"US")
+
 CSV.foreach(csv_file_path, headers: true) do |row|
   Location.create!(
     postcode: row['zip'],
     latitude: row['latitude'],
     longitude: row['longitude'],
     name: row['city'],
-    country: Country.first
+    country: country
   )
 end
 
@@ -56,3 +58,10 @@ Location.all.each do |location|
     end
   end
 end
+
+# Reply.delete_all
+# Post.delete_all
+# Page.delete_all
+# User.delete_all
+# Location.delete_all
+# PageType.delete_all
