@@ -6,6 +6,7 @@ ruby "3.2.2"
 gem "faker"
 gem "active_model_serializers"
 gem "sidekiq"
+gem "ruby-openai"
 
 gem 'pagy', '~> 6.0' # omit patch digit
 

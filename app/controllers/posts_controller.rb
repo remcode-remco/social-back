@@ -27,7 +27,11 @@ class PostsController < ApplicationController
     render json: @post
   end
 
-  def create
+  def createAI
+
+    client = OpenAI::Client.new
+    
+
     @post = Post.new(post_params)
     if @post.save
       render json: @post, status: :created
