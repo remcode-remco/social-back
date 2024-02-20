@@ -1,24 +1,6 @@
-# README
+## Nearly - social network idea
+The idea is that users post in their town and can read posts from others in their town, or a larger radius. There are no groups or specific topics, the goal is communication between people around us.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Some more info here](https://sfz697z4h25q.umso.co/)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This is a basic, read-only back-end made with Ruby on Rails.
